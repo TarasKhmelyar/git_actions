@@ -24,19 +24,19 @@ jobs:
           distribution: 'zulu'
 
       - name: Check Java version
-        run: java -version
+        run: "java -version"
 
       - name: show dir
-        run: pwd
+        run: "pwd"
 
       - name: list file
-        run: ls -al
+        run: "ls -al"
 
       - name: install depend
-        run: mvn compile
+        run: "mvn compile"
 
       - name: build
-        run: mvn package -DskipTests
+        run: "mvn package -DskipTests"
 
       - name: test
-        run: mvn test
+        run: "mvn test"
