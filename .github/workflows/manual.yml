@@ -3,11 +3,31 @@ name: CI
 
 on:
   push:
-    branches: [main]
-  pull_request:
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Complete"
+    branches: 
+      - main
+      - jenk
+      workflow-dispatch:
+  jobs:
+    my-first-job:
+      runs-on: ubuntu-latest
+      steps:
+        uses: action/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+        run: "java -version"
+        -name: CHECKOUT
+        uses: action/checkout@v2
+        with:
+          ref: jenk
+        -name: show dir
+        uses: "pwd"
+        -name: list file
+        uses: "ls -al"
+        -name: install depend
+        uses: "mnv compile"
+        -name: build
+        uses: "mvn package -DskipTests"
+        -name: test
+        uses: "mnv test"
+        
