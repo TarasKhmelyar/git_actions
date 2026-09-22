@@ -33,10 +33,13 @@ jobs:
         run: "ls -al"
 
       - name: install depend
+        working-directory: ./GitAction
         run: "mvn compile"
 
       - name: build
+        working-directory: ./GitAction
         run: "mvn package -DskipTests"
 
       - name: test
+        working-directory: ./GitAction
         run: "mvn test"
