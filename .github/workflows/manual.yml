@@ -43,3 +43,6 @@ jobs:
       - name: test
         working-directory: ./GitAction
         run: "mvn test"
+
+      - name: secret
+        run: echo "${{secrets.MY_SECRET}}"
