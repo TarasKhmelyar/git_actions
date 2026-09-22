@@ -1,4 +1,3 @@
-# This is a basic workflow that is manually triggered
 name: CI
 
 on:
@@ -6,28 +5,38 @@ on:
     branches: 
       - main
       - jenk
-      workflow-dispatch:
-  jobs:
-    my-first-job:
-      runs-on: ubuntu-latest
-      steps:
-        uses: action/setup-java@v2
+  workflow_dispatch:
+
+jobs:
+  my-first-job:
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v2
+        with:
+          ref: jenk
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'zulu'
-        run: "java -version"
-        -name: CHECKOUT
-        uses: action/checkout@v2
-        with:
-          ref: jenk
-        -name: show dir
-        uses: "pwd"
-        -name: list file
-        uses: "ls -al"
-        -name: install depend
-        uses: "mnv compile"
-        -name: build
-        uses: "mvn package -DskipTests"
-        -name: test
-        uses: "mnv test"
-        
+
+      - name: Check Java version
+        run: java -version
+
+      - name: show dir
+        run: pwd
+
+      - name: list file
+        run: ls -al
+
+      - name: install depend
+        run: mvn compile
+
+      - name: build
+        run: mvn package -DskipTests
+
+      - name: test
+        run: mvn test
